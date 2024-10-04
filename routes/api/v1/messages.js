@@ -67,4 +67,32 @@ router.post('/', (req, res, next) => {
     });
 });
 
+// PUT: /api/v1/messages/:id
+router.put('/:id', (req, res, next) => {
+  const id = parseInt(req.params.id); // Parse the ID from the request parameters
+  const message = messages.find(msg => msg.id === id); // Find the message by ID
+
+  if (message) {
+      const { user, text } = req.body.message; // Get user and text from the request body
+
+      message.user = user;
+      message.message = text;
+
+      res.status(200).json({
+          status: "success",
+          message: 'Message updated!',
+          data: {
+              message: message
+          }
+      });
+  } else {
+      res.status(404).json({
+          status: "error",
+          message: "Message not found"
+      });
+  }
+});
+
+// DELETE: /api/v1/messages/:id
+
 module.exports = router;
