@@ -22,4 +22,24 @@ router.get('/', (req, res, next) => {
     });
 });
 
+// GET /api/v1/messages/:id
+router.get('/:id', (req, res, next) => {
+  const id = parseInt(req.params.id); // Parse the ID from the request parameters
+  const message = messages.find(msg => msg.id === id); // Find the message by ID
+  if (message) {
+      res.status(200).json({
+          status: "success",
+          message: 'GET message with id ' + id,
+          data: {
+              message: message
+          }
+      });
+  } else {
+      res.status(404).json({
+          status: "error",
+          message: "Message not found"
+      });
+  }
+});
+
 module.exports = router;
