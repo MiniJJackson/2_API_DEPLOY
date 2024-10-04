@@ -113,4 +113,24 @@ router.delete('/:id', (req, res, next) => {
   }
 });
 
+// GET: /api/v1/messages?user=username
+router.get('/', (req, res, next) => {
+  const user = req.query.user; // Get the user query parameter
+  if (user) {
+      const userMessages = messages.filter(msg => msg.user === user); // Filter messages by user
+      res.status(200).json({
+          status: "success",
+          message: 'GET messages by user ' + user,
+          data: {
+              messages: userMessages
+          }
+      });
+  } else {
+      res.status(400).json({
+          status: "error",
+          message: "User parameter is required"
+      });
+  }
+});
+
 module.exports = router;
