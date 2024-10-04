@@ -16,14 +16,14 @@ router.get('/', (req, res, next) => {
         status: "success",
         message: 'GET messages!',
         data: {
-            messages: messages
+            messages: messages // return the messages array
         }
     });
 });
 
 // GET /api/v1/messages/:id
 router.get('/:id', (req, res, next) => {
-  const id = parseInt(req.params.id); // Parse the ID from the request parameters
+  const id = parseInt(req.params.id); // Parse the ID for request parameters
   const message = messages.find(msg => msg.id === id); // Find the message by ID
   if (message) {
       res.status(200).json({
@@ -43,21 +43,28 @@ router.get('/:id', (req, res, next) => {
 
 // POST /api/v1/messages
 router.post('/', (req, res, next) => {
-  const { user, text } = req.body.message; // Get user and text from the request body
-  // Add the message to the messages array
-  const newMessage = {
-      id: messages.length + 1, // Increment ID
-      user: user,
-      message: text
-  };
-  messages.push(newMessage);
-  res.status(201).json({
-      status: "success",
-      message: 'Message added!',
-      data: {
-          message: newMessage
-      }
-  });
+  const { user, text } = req.body.message; // Get user and text from the request
+
+    // Calculate the new ID
+    const newId = messages.length > 0 ? Math.max(...messages.map(msg => msg.id)) + 1 : 1;
+
+    // Create the new message
+    const newMessage = {
+        id: newId,
+        user: user,
+        message: text
+    };
+
+    // Add the new message to the messages array
+    messages.push(newMessage);
+
+    res.status(201).json({
+        status: "success",
+        message: 'Message added!',
+        data: {
+            message: newMessage
+        }
+    });
 });
 
 module.exports = router;
