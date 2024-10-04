@@ -1,4 +1,3 @@
-console.log('app.js, LETS DO THIS!');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -10,8 +9,8 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-//cors AANPASSEN
- var cors = require('cors');
+//cors
+const cors = require('cors');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
