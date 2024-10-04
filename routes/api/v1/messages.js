@@ -8,7 +8,6 @@ const messages = [
     { id: 2, user: "Jackson", message: "Yes we do!" },
     { id: 3, user: "Pam", message: "We go go!" },
     { id: 4, user: "Jack", message: "Do we do!" },
-
 ];
 
 // GET /api/v1/messages
@@ -40,6 +39,25 @@ router.get('/:id', (req, res, next) => {
           message: "Message not found"
       });
   }
+});
+
+// POST /api/v1/messages
+router.post('/', (req, res, next) => {
+  const { user, text } = req.body.message; // Get user and text from the request body
+  // Add the message to the messages array
+  const newMessage = {
+      id: messages.length + 1, // Increment ID
+      user: user,
+      message: text
+  };
+  messages.push(newMessage);
+  res.status(201).json({
+      status: "success",
+      message: 'Message added!',
+      data: {
+          message: newMessage
+      }
+  });
 });
 
 module.exports = router;
