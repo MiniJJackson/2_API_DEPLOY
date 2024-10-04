@@ -94,5 +94,23 @@ router.put('/:id', (req, res, next) => {
 });
 
 // DELETE: /api/v1/messages/:id
+router.delete('/:id', (req, res, next) => {
+  const id = parseInt(req.params.id); // Parse the ID from the request parameters
+  const messageIndex = messages.findIndex(msg => msg.id === id); // Find the index of the message by ID
+
+  if (messageIndex !== -1) {
+      messages.splice(messageIndex, 1); // Remove the message from the array
+
+      res.status(200).json({
+          status: "success",
+          message: 'Message is deleted! :) '
+      });
+  } else {
+      res.status(404).json({
+          status: "error",
+          message: "Message not found :c "
+      });
+  }
+});
 
 module.exports = router;
