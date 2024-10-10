@@ -1,7 +1,7 @@
 //add routes
 const express = require('express');
 const router = express.Router();
-const messageController = require('../../../controllers/api/v1/message');
+const messageController = require('../../../controllers/api/v1/message.js');
 
 //DATA messages
 const messages = [
@@ -26,7 +26,5 @@ router.put('/:id', messageController.update);
 // DELETE: /api/v1/messages/:id
 router.delete('/:id', messageController.destroy);
 
-// GET: /api/v1/messages?user=username
-router.get('/', messageController.username);
 
 module.exports = router;

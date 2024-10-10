@@ -1,11 +1,23 @@
 const index = (req, res, next) => {
-    res.status(200).json({
-        status: "success",
-        message: 'GET messages!',
-        data: {
-            messages: messages // return the messages array
-        }
-    });
+    const user = req.query.user; // Get the user query parameter
+    if (user) {
+        const userMessages = messages.filter(msg => msg.user === user); // Filter messages by user
+        res.status(200).json({
+            status: "success",
+            message: 'GET messages by user ' + user,
+            data: {
+                messages: userMessages
+            }
+        });
+    } else {
+        res.status(200).json({
+            status: "success",
+            message: 'GET messages!',
+            data: {
+                messages: messages // Return all messages if no user query parameter is provided
+            }
+        });
+    }
 }
 
 const show = (req, res, next) => {
