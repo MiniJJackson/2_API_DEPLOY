@@ -98,34 +98,16 @@ const destroy =  (req, res, next) => {
   
         res.status(200).json({
             status: "success",
-            message: 'Message is deleted! :) '
+            message: 'Message is deleted!'
         });
     } else {
         res.status(404).json({
             status: "error",
-            message: "Message not found :c "
+            message: "Message not found!"
         });
     }
   }
 
-  const username = (req, res, next) => {
-    const user = req.query.user; // Get the user query parameter
-    if (user) {
-        const userMessages = messages.filter(msg => msg.user === user); // Filter messages by user
-        res.status(200).json({
-            status: "success",
-            message: 'GET messages by user ' + user,
-            data: {
-                messages: userMessages
-            }
-        });
-    } else {
-        res.status(400).json({
-            status: "error",
-            message: "User parameter is required"
-        });
-    }
-  }
 
 module.exports = {
     index,
@@ -133,5 +115,4 @@ module.exports = {
     create,
     update,
     destroy,
-    username,
 }
